@@ -491,7 +491,7 @@
         /* ================= ABOUT ================= */
         #about .panel-inner {
             display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 70px;
             align-items: center;
         }
@@ -504,7 +504,7 @@
         }
 
         .about-text p {
-            font-size: clamp(1rem, 1.4vw, 1.15rem);
+            font-size: clamp(1rem, 1.4vw, 1.12rem);
             line-height: 1.85;
             color: #b7bfd4;
             margin-bottom: 18px;
@@ -518,22 +518,22 @@
         .stat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: var(--line);
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            overflow: hidden;
+            gap: 16px;
         }
 
         .stat-cell {
-            background: var(--surface);
-            padding: 26px 22px;
-            transition: background 0.3s ease, transform 0.3s ease;
+            background: linear-gradient(150deg, var(--surface-2), var(--surface));
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 28px 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.5);
         }
 
         .stat-cell:hover {
-            background: var(--surface-2);
-            transform: translateY(-2px);
+            border-color: rgba(125, 216, 255, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(125, 216, 255, 0.15);
         }
 
         .stat-cell .num {
@@ -926,27 +926,29 @@
         <div class="panel-wrap">
             <section class="panel" id="about">
                 <div class="panel-inner">
-                    <div>
+                    <div class="about-left">
                         <div class="eyebrow">About</div>
                         <h2 style="font-size:clamp(1.8rem,3vw,2.6rem); margin-bottom:22px;">Systems that stay online,
                             data that stays clean.</h2>
+                        <div class="about-text">
+                            <p>
+                                I'm a second-year <strong>B.Sc. Information Technology</strong> student at RD National
+                                College,
+                                Erode, and a part-time intern at <strong>SkynetBee Artificial Intelligence Pvt.
+                                    Ltd.</strong>
+                                My work sits at the intersection of backend development, server administration and database
+                                management — keeping real, production platforms running smoothly.
+                            </p>
+                            <p>
+                                I manage server-side operations, software maintenance and database administration across
+                                multiple live systems, including the <strong>RD National College</strong> software,
+                                <strong>RD International School</strong> software, and SkynetBee's own internal tools.
+                                Alongside this, I edit video with <strong>DaVinci Resolve</strong> and I'm always picking up
+                                new technologies.
+                            </p>
+                        </div>
                     </div>
-                    <div class="about-text">
-                        <p>
-                            I'm a second-year <strong>B.Sc. Information Technology</strong> student at RD National
-                            College,
-                            Erode, and a part-time intern at <strong>SkynetBee Artificial Intelligence Pvt.
-                                Ltd.</strong>
-                            My work sits at the intersection of backend development, server administration and database
-                            management — keeping real, production platforms running smoothly.
-                        </p>
-                        <p>
-                            I manage server-side operations, software maintenance and database administration across
-                            multiple live systems, including the <strong>RD National College</strong> software,
-                            <strong>RD International School</strong> software, and SkynetBee's own internal tools.
-                            Alongside this, I edit video with <strong>DaVinci Resolve</strong> and I'm always picking up
-                            new technologies.
-                        </p>
+                    <div class="about-right">
                         <div class="stat-grid">
                             <div class="stat-cell">
                                 <div class="num">2nd</div>
@@ -1191,6 +1193,7 @@
             });
             // trigger check
             if (img.complete && img.naturalWidth === 0) { img.dispatchEvent(new Event('error')); }
+
 
             // ---------- Scroll-driven 3D "close & reveal" panel transform ----------
             const wraps = Array.from(document.querySelectorAll('.panel-wrap'));
