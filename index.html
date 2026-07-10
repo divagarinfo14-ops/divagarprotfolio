@@ -4,25 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Divagar N — Backend & Database Engineer</title>
+    <title>Divagar N — Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --bg: #05060a;
-            --surface: #0b0d16;
-            --surface-2: #10131f;
-            --line: #1c2033;
-            --cyan: #7dd8ff;
-            --violet: #b18aff;
-            --amber: #ffb454;
-            --text: #e8ecf5;
-            --muted: #8891a7;
-            --mono: 'JetBrains Mono', monospace;
-            --display: 'Outfit', sans-serif;
-            --body: 'Plus Jakarta Sans', sans-serif;
+            --bg: #080706;
+            --surface: #110f0c;
+            --surface-2: #161310;
+            --line: #2b2620;
+            --line-soft: #1d1a15;
+            --gold: #c9a45c;
+            --gold-bright: #e0c07f;
+            --gold-deep: #7a5f34;
+            --cream: #f2ede0;
+            --muted: #8f8776;
+            --display: 'Cormorant Garamond', serif;
+            --body: 'Inter', sans-serif;
         }
 
         * {
@@ -37,15 +37,15 @@
 
         body {
             background: var(--bg);
-            color: var(--text);
+            color: var(--cream);
             font-family: var(--body);
+            font-weight: 300;
             overflow-x: hidden;
-            cursor: default;
         }
 
         ::selection {
-            background: var(--cyan);
-            color: #05060a;
+            background: var(--gold);
+            color: #080706;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -59,12 +59,12 @@
             }
         }
 
-        /* ---------- Background canvas ---------- */
+        /* ---------- Background ---------- */
         #bg-canvas {
             position: fixed;
             inset: 0;
             z-index: 0;
-            opacity: 0.55;
+            opacity: 0.5;
         }
 
         .noise-overlay {
@@ -72,7 +72,18 @@
             inset: 0;
             z-index: 1;
             pointer-events: none;
-            background-image: radial-gradient(circle at 50% 0%, rgba(125, 216, 255, 0.06), transparent 60%);
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(201, 164, 92, 0.07), transparent 55%),
+                radial-gradient(ellipse at 100% 100%, rgba(201, 164, 92, 0.04), transparent 60%);
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
         /* ---------- Nav ---------- */
@@ -85,38 +96,39 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 28px 48px;
-            mix-blend-mode: difference;
+            padding: 30px 48px;
+            font-family: var(--body);
         }
 
         .nav-logo {
-            font-family: var(--mono);
-            font-size: 14px;
-            letter-spacing: 0.08em;
-            color: var(--text);
+            font-family: var(--display);
+            font-size: 19px;
+            letter-spacing: 0.04em;
+            color: var(--cream);
         }
 
-        .nav-logo span {
-            color: var(--cyan);
+        .nav-logo em {
+            color: var(--gold);
+            font-style: italic;
         }
 
         .nav-status {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.1em;
+            font-size: 10px;
+            letter-spacing: 0.22em;
             color: var(--muted);
+            text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 9px;
         }
 
         .pulse-dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
-            background: var(--cyan);
-            box-shadow: 0 0 8px var(--cyan);
-            animation: pulse 2s ease-in-out infinite;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold);
+            animation: pulse 2.4s ease-in-out infinite;
         }
 
         @keyframes pulse {
@@ -128,26 +140,26 @@
             }
 
             50% {
-                opacity: 0.4;
+                opacity: 0.35;
                 transform: scale(0.7);
             }
         }
 
-        /* ---------- Side progress dots ---------- */
+        /* ---------- Side rail ---------- */
         .rail {
             position: fixed;
-            right: 36px;
+            right: 38px;
             top: 50%;
             transform: translateY(-50%);
             z-index: 100;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 20px;
         }
 
         .rail-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             border: 1px solid var(--line);
             background: transparent;
@@ -162,9 +174,10 @@
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-family: var(--mono);
+            font-family: var(--body);
             font-size: 10px;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
             color: var(--muted);
             white-space: nowrap;
             opacity: 0;
@@ -177,10 +190,10 @@
         }
 
         .rail-dot.active {
-            background: var(--cyan);
-            border-color: var(--cyan);
-            box-shadow: 0 0 10px var(--cyan);
-            transform: scale(1.3);
+            background: var(--gold);
+            border-color: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+            transform: scale(1.4);
         }
 
         @media (max-width:768px) {
@@ -189,11 +202,11 @@
             }
 
             nav {
-                padding: 20px 24px;
+                padding: 20px 22px;
             }
         }
 
-        /* ---------- Stage / perspective ---------- */
+        /* ---------- Stage ---------- */
         main {
             position: relative;
             z-index: 2;
@@ -236,109 +249,105 @@
         }
 
         .eyebrow {
-            font-family: var(--mono);
-            font-size: 12px;
-            letter-spacing: 0.18em;
-            color: var(--cyan);
+            font-family: var(--body);
+            font-size: 11px;
+            letter-spacing: 0.28em;
+            color: var(--gold);
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 22px;
         }
 
         .eyebrow::before {
             content: '';
-            width: 24px;
+            width: 30px;
             height: 1px;
-            background: var(--cyan);
+            background: var(--gold-deep);
         }
 
         h1,
         h2,
         h3 {
             font-family: var(--display);
-            font-weight: 600;
-            letter-spacing: -0.02em;
+            font-weight: 500;
+            letter-spacing: 0;
         }
 
         /* ================= HERO ================= */
         #hero .panel-inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             text-align: center;
         }
 
-        .hero-name {
-            font-size: clamp(3rem, 7.5vw, 6rem);
-            line-height: 1.02;
-            background: linear-gradient(135deg, #fff 30%, var(--cyan) 65%, var(--violet) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-role {
-            font-family: var(--body);
-            font-weight: 400;
-            font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+        .hero-kicker {
+            font-size: 11px;
+            letter-spacing: 0.4em;
             color: var(--muted);
-            margin-top: 24px;
-            max-width: 680px;
-            line-height: 1.75;
+            text-transform: uppercase;
+            margin-bottom: 26px;
         }
 
-        .hero-role strong {
-            color: var(--text);
+        .hero-kicker span {
+            color: var(--gold);
+        }
+
+        .hero-name {
+            font-size: clamp(3.2rem, 10vw, 8rem);
+            line-height: 0.98;
+            color: var(--cream);
             font-weight: 500;
         }
 
-        .hero-meta {
-            display: flex;
-            gap: 36px;
-            margin-top: 48px;
-            font-family: var(--mono);
-            font-size: 12px;
+        .hero-name em {
+            font-style: italic;
+            color: var(--gold-bright);
+            font-weight: 400;
+        }
+
+        .hero-rule {
+            width: 70px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 32px auto;
+        }
+
+        .hero-role {
+            font-family: var(--display);
+            font-style: italic;
+            font-size: clamp(1.1rem, 1.8vw, 1.5rem);
             color: var(--muted);
-            justify-content: center;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
-        @media (max-width:900px) {
-            .hero-meta {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-        }
-
-        .hero-meta div span {
-            display: block;
-            color: var(--text);
-            font-size: 14px;
-            margin-top: 4px;
+        .hero-role strong {
+            color: var(--cream);
+            font-weight: 500;
+            font-style: normal;
         }
 
         .scroll-cue {
             position: absolute;
-            bottom: 40px;
+            bottom: 42px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            font-family: var(--mono);
             font-size: 10px;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.3em;
             color: var(--muted);
+            text-transform: uppercase;
         }
 
         .scroll-cue .line {
             width: 1px;
-            height: 40px;
-            background: linear-gradient(var(--cyan), transparent);
-            animation: scrollline 1.8s ease-in-out infinite;
+            height: 42px;
+            background: linear-gradient(var(--gold), transparent);
+            animation: scrollline 2s ease-in-out infinite;
         }
 
         @keyframes scrollline {
@@ -362,136 +371,187 @@
             }
         }
 
-        /* Terminal card (3D floating) */
-        .terminal-stage {
-            perspective: 1200px;
-            display: flex;
-            justify-content: center;
+        /* ================= PROFILE ================= */
+        #profile .panel-inner {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 70px;
+            align-items: center;
         }
 
-        .terminal-card {
-            position: relative;
-            width: 100%;
-            max-width: 420px;
-            background: linear-gradient(160deg, var(--surface-2), var(--surface));
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(125, 216, 255, 0.04) inset;
-            transform: rotateY(-16deg) rotateX(8deg);
-            transition: transform 0.2s ease-out;
-            overflow: visible;
-        }
-
-        .terminal-bar {
-            display: flex;
-            gap: 6px;
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 13px 13px 0 0;
-        }
-
-        .terminal-bar span {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #33384d;
-        }
-
-        .terminal-bar span:nth-child(1) {
-            background: #ff6a6a;
-        }
-
-        .terminal-bar span:nth-child(2) {
-            background: #ffb454;
-        }
-
-        .terminal-bar span:nth-child(3) {
-            background: #59d499;
-        }
-
-        .terminal-body {
-            padding: 22px 20px 28px;
-            font-family: var(--mono);
-            font-size: 12.5px;
-            line-height: 1.9;
-            color: #9db0d4;
-            min-height: 220px;
-        }
-
-        .terminal-body .kw {
-            color: var(--violet);
-        }
-
-        .terminal-body .str {
-            color: var(--amber);
-        }
-
-        .terminal-body .fn {
-            color: var(--cyan);
-        }
-
-        .terminal-body .cmt {
-            color: #4b5265;
-        }
-
-        .cursor-blink {
-            display: inline-block;
-            width: 7px;
-            height: 14px;
-            background: var(--cyan);
-            margin-left: 2px;
-            animation: blink 1s step-end infinite;
-            vertical-align: middle;
-        }
-
-        @keyframes blink {
-            50% {
-                opacity: 0;
+        @media (max-width:900px) {
+            #profile .panel-inner {
+                grid-template-columns: 1fr;
+                gap: 38px;
+                text-align: center;
             }
         }
 
-        .photo-orb {
-            position: absolute;
-            bottom: -30px;
-            right: -30px;
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            background: linear-gradient(140deg, var(--cyan), var(--violet));
+        .portrait-frame {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto;
+            aspect-ratio: 4/5;
+            border: 1px solid var(--gold-deep);
+            padding: 14px;
+        }
+
+        .portrait-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(150deg, var(--surface-2), var(--surface));
+        }
+
+        .portrait-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.35) sepia(0.22) contrast(1.05) brightness(0.95);
+            display: none;
+        }
+
+        .portrait-fallback {
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: var(--display);
-            font-weight: 700;
-            font-size: 26px;
-            color: #05060a;
-            box-shadow: 0 20px 40px -10px rgba(125, 216, 255, 0.4), 0 0 0 6px var(--bg);
-            overflow: hidden;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 5rem;
+            color: var(--gold-deep);
         }
 
-        .photo-orb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
+        .corner {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-color: var(--gold);
         }
 
-        @media (max-width: 480px) {
-            .photo-orb {
-                right: -10px;
-                bottom: -20px;
-                width: 80px;
-                height: 80px;
-                font-size: 22px;
-                box-shadow: 0 10px 20px -5px rgba(125, 216, 255, 0.4), 0 0 0 4px var(--bg);
+        .corner.tl {
+            top: -1px;
+            left: -1px;
+            border-top: 1px solid var(--gold);
+            border-left: 1px solid var(--gold);
+        }
+
+        .corner.tr {
+            top: -1px;
+            right: -1px;
+            border-top: 1px solid var(--gold);
+            border-right: 1px solid var(--gold);
+        }
+
+        .corner.bl {
+            bottom: -1px;
+            left: -1px;
+            border-bottom: 1px solid var(--gold);
+            border-left: 1px solid var(--gold);
+        }
+
+        .corner.br {
+            bottom: -1px;
+            right: -1px;
+            border-bottom: 1px solid var(--gold);
+            border-right: 1px solid var(--gold);
+        }
+
+        .portrait-caption {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .portrait-caption em {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        .profile-quote {
+            font-family: var(--display);
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+            line-height: 1.4;
+            color: var(--cream);
+            margin-bottom: 26px;
+        }
+
+        .profile-quote::before {
+            content: '\201C';
+            color: var(--gold);
+        }
+
+        .profile-quote::after {
+            content: '\201D';
+            color: var(--gold);
+        }
+
+        .profile-bio {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.85;
+            max-width: 520px;
+            margin-bottom: 30px;
+        }
+
+        .profile-bio strong {
+            color: var(--cream);
+            font-weight: 500;
+        }
+
+        @media (max-width:900px) {
+            .profile-bio {
+                margin-left: auto;
+                margin-right: auto;
             }
+        }
+
+        .fact-rows {
+            border-top: 1px solid var(--line);
+            max-width: 520px;
+        }
+
+        @media (max-width:900px) {
+            .fact-rows {
+                margin: 0 auto;
+            }
+        }
+
+        .fact-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 13.5px;
+        }
+
+        .fact-row .k {
+            color: var(--muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        .fact-row .v {
+            color: var(--cream);
+            font-family: var(--display);
+            font-style: italic;
+            font-size: 15px;
         }
 
         /* ================= ABOUT ================= */
         #about .panel-inner {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 0.9fr 1.1fr;
             gap: 70px;
             align-items: center;
         }
@@ -503,111 +563,115 @@
             }
         }
 
+        .about-title {
+            font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+            font-style: italic;
+            color: var(--cream);
+            margin-bottom: 8px;
+        }
+
         .about-text p {
-            font-size: clamp(1rem, 1.4vw, 1.12rem);
-            line-height: 1.85;
-            color: #b7bfd4;
+            font-size: 1rem;
+            line-height: 1.9;
+            color: var(--muted);
             margin-bottom: 18px;
         }
 
         .about-text strong {
-            color: var(--text);
+            color: var(--cream);
             font-weight: 500;
+            font-family: var(--display);
+            font-style: italic;
+            font-size: 1.05em;
         }
 
-        .stat-grid {
+        .stat-rows {
+            border-top: 1px solid var(--line);
+        }
+
+        .stat-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            grid-template-columns: 64px 1fr;
+            align-items: baseline;
+            gap: 18px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--line);
         }
 
-        .stat-cell {
-            background: linear-gradient(150deg, var(--surface-2), var(--surface));
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            padding: 28px 24px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        .stat-cell:hover {
-            border-color: rgba(125, 216, 255, 0.35);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -15px rgba(125, 216, 255, 0.15);
-        }
-
-        .stat-cell .num {
+        .stat-row .num {
             font-family: var(--display);
             font-size: 1.6rem;
-            color: var(--cyan);
+            font-style: italic;
+            color: var(--gold);
         }
 
-        .stat-cell .lbl {
-            font-family: var(--mono);
+        .stat-row .lbl {
             font-size: 11px;
+            letter-spacing: 0.16em;
             color: var(--muted);
-            margin-top: 8px;
-            letter-spacing: 0.05em;
-        }
-
-        /* ================= SKILLS ================= */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            margin-top: 44px;
-        }
-
-        .skill-card {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 24px 20px;
-            transform-style: preserve-3d;
-            transition: transform 0.15s ease-out, border-color 0.3s ease, background 0.3s ease;
-            position: relative;
-        }
-
-        .skill-card:hover {
-            border-color: rgba(125, 216, 255, 0.4);
-            background: var(--surface-2);
-        }
-
-        .skill-card .tag {
-            font-family: var(--mono);
-            font-size: 10px;
-            color: var(--muted);
-            letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
-        .skill-card h3 {
-            font-size: 1.05rem;
-            margin-top: 10px;
-            color: var(--text);
+        /* ================= SKILLS ================= */
+        .index-list {
+            margin-top: 42px;
+            border-top: 1px solid var(--line);
         }
 
-        .skill-card .bar {
-            height: 3px;
+        .index-row {
+            display: grid;
+            grid-template-columns: 60px 1fr 120px;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--line);
+            transition: padding-left 0.3s ease;
+        }
+
+        .index-row:hover {
+            padding-left: 10px;
+        }
+
+        .index-row .roman {
+            font-family: var(--display);
+            font-style: italic;
+            color: var(--gold-deep);
+            font-size: 1rem;
+        }
+
+        .index-row h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--cream);
+        }
+
+        .index-track {
+            height: 1px;
             background: var(--line);
-            margin-top: 16px;
-            border-radius: 2px;
-            overflow: hidden;
+            position: relative;
         }
 
-        .skill-card .bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--cyan), var(--violet));
+        .index-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 1px;
+            background: var(--gold);
             width: var(--lvl, 70%);
-            border-radius: 2px;
+        }
+
+        @media (max-width:600px) {
+            .index-row {
+                grid-template-columns: 36px 1fr;
+            }
+
+            .index-track {
+                display: none;
+            }
         }
 
         .skills-sub {
-            margin-top: 52px;
-        }
-
-        .skills-sub .eyebrow {
-            margin-bottom: 16px;
+            margin-top: 48px;
         }
 
         .tool-row {
@@ -617,46 +681,42 @@
         }
 
         .tool-pill {
-            font-family: var(--mono);
-            font-size: 12px;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             color: var(--muted);
             border: 1px solid var(--line);
-            padding: 9px 16px;
-            border-radius: 999px;
+            padding: 10px 18px;
             transition: all 0.3s ease;
         }
 
         .tool-pill:hover {
-            color: var(--text);
-            border-color: var(--amber);
-            box-shadow: 0 0 16px -4px rgba(255, 180, 84, 0.4);
+            color: var(--gold-bright);
+            border-color: var(--gold);
         }
 
         /* ================= EXPERIENCE ================= */
         .exp-card {
-            background: linear-gradient(150deg, var(--surface-2), var(--surface));
             border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 44px;
+            padding: 48px;
             position: relative;
-            overflow: hidden;
+            background: var(--surface);
         }
 
         @media (max-width:768px) {
             .exp-card {
-                padding: 28px 22px;
+                padding: 30px 22px;
             }
         }
 
         .exp-card::before {
             content: '';
             position: absolute;
-            top: -40%;
-            right: -20%;
-            width: 60%;
-            height: 180%;
-            background: radial-gradient(circle, rgba(177, 138, 255, 0.10), transparent 70%);
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 100%;
+            background: var(--gold-deep);
         }
 
         .exp-head {
@@ -665,110 +725,113 @@
             align-items: flex-start;
             flex-wrap: wrap;
             gap: 16px;
-            margin-bottom: 28px;
+            margin-bottom: 30px;
             border-bottom: 1px solid var(--line);
-            padding-bottom: 24px;
+            padding-bottom: 26px;
         }
 
         .exp-head h2 {
-            font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+            font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+            font-style: italic;
+            color: var(--cream);
         }
 
         .exp-head .role-tag {
-            font-family: var(--mono);
-            font-size: 11px;
-            color: var(--amber);
-            letter-spacing: 0.08em;
-            margin-top: 8px;
+            font-size: 10.5px;
+            color: var(--gold);
+            letter-spacing: 0.18em;
+            margin-top: 10px;
             display: block;
+            text-transform: uppercase;
         }
 
         .exp-head .period {
-            font-family: var(--mono);
-            font-size: 12px;
+            font-size: 11px;
             color: var(--muted);
             text-align: right;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
         }
 
         .exp-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 22px;
+            gap: 26px;
         }
 
         .exp-item {
             display: flex;
-            gap: 14px;
+            gap: 16px;
         }
 
         .exp-item .idx {
-            font-family: var(--mono);
-            font-size: 11px;
-            color: var(--cyan);
-            padding-top: 2px;
+            font-family: var(--display);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--gold-deep);
         }
 
         .exp-item p {
             font-size: 14px;
-            color: #b7bfd4;
-            line-height: 1.7;
+            color: var(--muted);
+            line-height: 1.75;
         }
 
         /* ================= PROJECTS ================= */
         .proj-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 22px;
-            margin-top: 40px;
+            gap: 1px;
+            margin-top: 44px;
+            background: var(--line);
+            border: 1px solid var(--line);
         }
 
         .proj-card {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            padding: 30px 26px;
-            transform-style: preserve-3d;
-            transition: transform 0.15s ease-out, border-color 0.3s ease;
-            position: relative;
+            background: var(--bg);
+            padding: 34px 28px;
+            transition: background 0.3s ease;
         }
 
         .proj-card:hover {
-            border-color: rgba(125, 216, 255, 0.35);
+            background: var(--surface);
         }
 
         .proj-num {
-            font-family: var(--mono);
-            font-size: 11px;
-            color: var(--muted);
+            font-family: var(--display);
+            font-style: italic;
+            font-size: 12px;
+            color: var(--gold-deep);
         }
 
         .proj-card h3 {
-            font-size: 1.2rem;
-            margin-top: 14px;
-            color: var(--text);
+            font-size: 1.35rem;
+            font-weight: 400;
+            margin-top: 16px;
+            color: var(--cream);
         }
 
         .proj-card p {
             font-size: 13.5px;
             color: var(--muted);
-            line-height: 1.7;
-            margin-top: 12px;
+            line-height: 1.8;
+            margin-top: 14px;
         }
 
         .proj-stack {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-top: 18px;
+            margin-top: 20px;
         }
 
         .proj-stack span {
-            font-family: var(--mono);
             font-size: 10px;
-            color: var(--cyan);
-            border: 1px solid rgba(125, 216, 255, 0.25);
-            padding: 4px 9px;
-            border-radius: 6px;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            border: 1px solid var(--gold-deep);
+            padding: 5px 10px;
+            text-transform: uppercase;
         }
 
         /* ================= CONTACT ================= */
@@ -777,22 +840,24 @@
         }
 
         .contact-big {
-            font-size: clamp(2.2rem, 7vw, 5rem);
+            font-size: clamp(2.4rem, 7.4vw, 5.4rem);
             line-height: 1.05;
+            font-weight: 500;
         }
 
-        .contact-big .accent {
-            background: linear-gradient(120deg, var(--cyan), var(--violet));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .contact-big em {
+            font-style: italic;
+            color: var(--gold-bright);
+            font-weight: 400;
         }
 
         .contact-sub {
+            font-family: var(--display);
+            font-style: italic;
             color: var(--muted);
             max-width: 480px;
-            margin: 22px auto 40px;
-            font-size: 1rem;
+            margin: 24px auto 44px;
+            font-size: 1.15rem;
             line-height: 1.7;
         }
 
@@ -804,12 +869,12 @@
         }
 
         .contact-link {
-            font-family: var(--mono);
-            font-size: 13px;
-            color: var(--text);
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--cream);
             border: 1px solid var(--line);
-            padding: 14px 26px;
-            border-radius: 10px;
+            padding: 16px 30px;
             text-decoration: none;
             transition: all 0.3s ease;
             display: inline-flex;
@@ -818,24 +883,30 @@
         }
 
         .contact-link:hover {
-            border-color: var(--cyan);
-            background: rgba(125, 216, 255, 0.06);
+            border-color: var(--gold);
+            color: var(--gold-bright);
             transform: translateY(-3px);
         }
 
         .contact-link.primary {
-            background: linear-gradient(120deg, var(--cyan), var(--violet));
-            color: #05060a;
-            font-weight: 600;
-            border: none;
+            background: var(--gold);
+            color: #080706;
+            border-color: var(--gold);
+            font-weight: 500;
+        }
+
+        .contact-link.primary:hover {
+            background: var(--gold-bright);
+            color: #080706;
         }
 
         footer {
             text-align: center;
-            padding: 30px;
-            font-family: var(--mono);
-            font-size: 11px;
-            color: #3d4257;
+            padding: 32px;
+            font-size: 10.5px;
+            letter-spacing: 0.18em;
+            color: #3a3528;
+            text-transform: uppercase;
             position: relative;
             z-index: 2;
         }
@@ -846,15 +917,16 @@
 
     <canvas id="bg-canvas"></canvas>
     <div class="noise-overlay"></div>
+    <div class="grain"></div>
 
     <nav>
-        <div class="nav-logo">DIVAGAR N</div>
-        <div class="nav-status"><span class="pulse-dot"></span>AVAILABLE FOR WORK</div>
+        <div class="nav-logo">Divagar<em> N.</em></div>
+        <div class="nav-status"><span class="pulse-dot"></span>Available for work</div>
     </nav>
 
     <div class="rail">
         <div class="rail-dot" data-target="hero" data-label="Intro"></div>
-        <div class="rail-dot" data-target="console" data-label="Console"></div>
+        <div class="rail-dot" data-target="profile" data-label="Profile"></div>
         <div class="rail-dot" data-target="about" data-label="About"></div>
         <div class="rail-dot" data-target="skills" data-label="Skills"></div>
         <div class="rail-dot" data-target="experience" data-label="Experience"></div>
@@ -868,56 +940,60 @@
         <div class="panel-wrap">
             <section class="panel" id="hero">
                 <div class="panel-inner">
-                    <div>
-                        <!-- <div class="eyebrow">Backend &amp; Database Engineer</div> -->
-                        <h1 class="hero-name">Divagar&nbsp;N</h1>
-                        <p class="hero-role">
-                            2nd-year <strong>B.Sc. Information Technology</strong> student at RD National College, Erode
-                            —
-                            currently interning at <strong>SkynetBee Artificial Intelligence Pvt. Ltd.</strong>,
-                            keeping production systems, servers and databases running.
-                        </p>
-                        <div class="hero-meta">
-                            <div>ROLE<span>Software Intern</span></div>
-                            <div>COMPANY<span>SkynetBee AI</span></div>
-                            <div>BASE<span>Erode, TN</span></div>
-                        </div>
-                    </div>
+                    <div class="hero-kicker">Issue N°01 <span>—</span> The Portfolio of</div>
+                    <h1 class="hero-name">Divagar <em>N</em></h1>
+                    <div class="hero-rule"></div>
+                    <p class="hero-role">
+                        <strong>Backend &amp; Database Engineer</strong> — quietly keeping colleges,
+                        schools and internal systems running, one query at a time.
+                    </p>
                 </div>
-
                 <div class="scroll-cue">
-                    <div class="line"></div>SCROLL
+                    <div class="line"></div>Scroll
                 </div>
             </section>
         </div>
 
-        <!-- CONSOLE -->
+        <!-- PROFILE -->
         <div class="panel-wrap">
-            <section class="panel" id="console">
-                <div class="panel-inner" style="display: flex; justify-content: center; align-items: center;">
-                    <div class="terminal-stage">
-                        <div class="terminal-card" id="tiltCard">
-                            <div class="terminal-bar"><span></span><span></span><span></span></div>
-                            <div class="terminal-body">
-                                <span class="cmt">-- query: developer.sql</span><br>
-                                <span class="kw">SELECT</span> name, role, stack<br>
-                                <span class="kw">FROM</span> <span class="fn">developers</span><br>
-                                <span class="kw">WHERE</span> name = <span class="str">'Divagar N'</span>;<br><br>
-                                <span class="cmt">-- result</span><br>
-                                name&nbsp;&nbsp;&nbsp;: <span class="str">Divagar N</span><br>
-                                stack&nbsp;&nbsp;: PHP, JS, Swift<br>
-                                status&nbsp;: <span class="fn">online</span><span class="cursor-blink"></span>
-                            </div>
-                            <div class="photo-orb" id="photoOrb">
+            <section class="panel" id="profile">
+                <div class="panel-inner">
+                    <div>
+                        <div class="portrait-frame">
+                            <div class="portrait-inner">
                                 <img id="profileImg" src="myprofile.jpeg" alt="Divagar N">
-                                <span id="photoFallback">DN</span>
+                                <div class="portrait-fallback" id="photoFallback">DN</div>
+                                <div class="corner tl"></div>
+                                <div class="corner tr"></div>
+                                <div class="corner bl"></div>
+                                <div class="corner br"></div>
                             </div>
                         </div>
+                        <div class="portrait-caption">Fig. 01 <em>—</em> Divagar N, Erode</div>
                     </div>
-                </div>
 
-                <div class="scroll-cue">
-                    <div class="line"></div>SCROLL
+                    <div>
+                        <div class="eyebrow">N°01 — Profile</div>
+                        <p class="profile-quote">Building the systems that colleges and schools quietly rely on, every
+                            single day.</p>
+                        <p class="profile-bio">
+                            I'm a second-year <strong>B.Sc. Information Technology</strong> student at RD National
+                            College,
+                            Erode, currently interning at <strong>SkynetBee Artificial Intelligence Pvt. Ltd.</strong>
+                            I work across server operations, software maintenance and database administration —
+                            and edit video on the side with DaVinci Resolve.
+                        </p>
+                        <div class="fact-rows">
+                            <div class="fact-row"><span class="k">Role</span><span class="v">Software Intern</span>
+                            </div>
+                            <div class="fact-row"><span class="k">Company</span><span class="v">SkynetBee AI Pvt.
+                                    Ltd.</span></div>
+                            <div class="fact-row"><span class="k">Education</span><span class="v">B.Sc. IT, RD National
+                                    College</span></div>
+                            <div class="fact-row"><span class="k">Based in</span><span class="v">Erode, Tamil
+                                    Nadu</span></div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -926,46 +1002,29 @@
         <div class="panel-wrap">
             <section class="panel" id="about">
                 <div class="panel-inner">
-                    <div class="about-left">
-                        <div class="eyebrow">About</div>
-                        <h2 style="font-size:clamp(1.8rem,3vw,2.6rem); margin-bottom:22px;">Systems that stay online,
-                            data that stays clean.</h2>
-                        <div class="about-text">
-                            <p>
-                                I'm a second-year <strong>B.Sc. Information Technology</strong> student at RD National
-                                College,
-                                Erode, and a part-time intern at <strong>SkynetBee Artificial Intelligence Pvt.
-                                    Ltd.</strong>
-                                My work sits at the intersection of backend development, server administration and database
-                                management — keeping real, production platforms running smoothly.
-                            </p>
-                            <p>
-                                I manage server-side operations, software maintenance and database administration across
-                                multiple live systems, including the <strong>RD National College</strong> software,
-                                <strong>RD International School</strong> software, and SkynetBee's own internal tools.
-                                Alongside this, I edit video with <strong>DaVinci Resolve</strong> and I'm always picking up
-                                new technologies.
-                            </p>
-                        </div>
+                    <div>
+                        <div class="eyebrow">N°02 — Background</div>
+                        <h2 class="about-title">Systems that stay online.</h2>
                     </div>
-                    <div class="about-right">
-                        <div class="stat-grid">
-                            <div class="stat-cell">
-                                <div class="num">2nd</div>
-                                <div class="lbl">YEAR — B.SC IT</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="num">3+</div>
-                                <div class="lbl">LIVE PLATFORMS MANAGED</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="num">5</div>
-                                <div class="lbl">LANGUAGES / STACKS</div>
-                            </div>
-                            <div class="stat-cell">
-                                <div class="num">∞</div>
-                                <div class="lbl">STILL LEARNING</div>
-                            </div>
+                    <div class="about-text">
+                        <p>
+                            My work sits at the intersection of backend development, server administration and database
+                            management. I manage server-side operations, software maintenance and database
+                            administration
+                            across multiple live systems, including the <strong>RD National College</strong> software,
+                            <strong>RD International School</strong> software, and SkynetBee's own internal tools.
+                        </p>
+                        <p>
+                            Alongside my studies, I keep learning — new stacks, new tools, and better ways to keep
+                            production systems clean and reliable.
+                        </p>
+                        <div class="stat-rows">
+                            <div class="stat-row"><span class="num">2nd</span><span class="lbl">Year — B.Sc Information
+                                    Technology</span></div>
+                            <div class="stat-row"><span class="num">3+</span><span class="lbl">Live platforms
+                                    managed</span></div>
+                            <div class="stat-row"><span class="num">5</span><span class="lbl">Languages &amp;
+                                    stacks</span></div>
                         </div>
                     </div>
                 </div>
@@ -976,36 +1035,32 @@
         <div class="panel-wrap">
             <section class="panel" id="skills">
                 <div class="panel-inner">
-                    <div class="eyebrow">Skills</div>
-                    <h2 style="font-size:clamp(1.8rem,3vw,2.6rem);">Languages &amp; tools I build with</h2>
+                    <div class="eyebrow">N°03 — Skills</div>
+                    <h2 class="about-title">Languages &amp; tools I build with.</h2>
 
-                    <div class="skills-grid">
-                        <div class="skill-card" style="--lvl:88%">
-                            <div class="tag">Markup / Style</div>
+                    <div class="index-list">
+                        <div class="index-row"><span class="roman">I.</span>
                             <h3>HTML &amp; CSS</h3>
-                            <div class="bar">
-                                <div class="bar-fill"></div>
+                            <div class="index-track">
+                                <div class="index-fill" style="--lvl:88%"></div>
                             </div>
                         </div>
-                        <div class="skill-card" style="--lvl:82%">
-                            <div class="tag">Scripting</div>
+                        <div class="index-row"><span class="roman">II.</span>
                             <h3>JavaScript</h3>
-                            <div class="bar">
-                                <div class="bar-fill"></div>
+                            <div class="index-track">
+                                <div class="index-fill" style="--lvl:82%"></div>
                             </div>
                         </div>
-                        <div class="skill-card" style="--lvl:90%">
-                            <div class="tag">Backend</div>
+                        <div class="index-row"><span class="roman">III.</span>
                             <h3>PHP</h3>
-                            <div class="bar">
-                                <div class="bar-fill"></div>
+                            <div class="index-track">
+                                <div class="index-fill" style="--lvl:90%"></div>
                             </div>
                         </div>
-                        <div class="skill-card" style="--lvl:70%">
-                            <div class="tag">Mobile</div>
+                        <div class="index-row"><span class="roman">IV.</span>
                             <h3>Swift</h3>
-                            <div class="bar">
-                                <div class="bar-fill"></div>
+                            <div class="index-track">
+                                <div class="index-fill" style="--lvl:70%"></div>
                             </div>
                         </div>
                     </div>
@@ -1029,33 +1084,33 @@
         <div class="panel-wrap">
             <section class="panel" id="experience">
                 <div class="panel-inner">
-                    <div class="eyebrow">Experience</div>
+                    <div class="eyebrow">N°04 — Experience</div>
                     <div class="exp-card">
                         <div class="exp-head">
                             <div>
                                 <h2>SkynetBee Artificial Intelligence Pvt. Ltd.</h2>
-                                <span class="role-tag">SOFTWARE INTERN — BACKEND &amp; DATABASE</span>
+                                <span class="role-tag">Software Intern — Backend &amp; Database</span>
                             </div>
-                            <div class="period">CURRENT<br>PART-TIME</div>
+                            <div class="period">Current<br>Part-time</div>
                         </div>
                         <div class="exp-list">
-                            <div class="exp-item"><span class="idx">01</span>
+                            <div class="exp-item"><span class="idx">I.</span>
                                 <p>Manage server-side operations and day-to-day software maintenance across production
                                     platforms.</p>
                             </div>
-                            <div class="exp-item"><span class="idx">02</span>
+                            <div class="exp-item"><span class="idx">II.</span>
                                 <p>Handle database administration and data integrity for multiple live systems.</p>
                             </div>
-                            <div class="exp-item"><span class="idx">03</span>
+                            <div class="exp-item"><span class="idx">III.</span>
                                 <p>Maintain the RD National College software used across the institution.</p>
                             </div>
-                            <div class="exp-item"><span class="idx">04</span>
+                            <div class="exp-item"><span class="idx">IV.</span>
                                 <p>Support the RD International School software and its backend systems.</p>
                             </div>
-                            <div class="exp-item"><span class="idx">05</span>
+                            <div class="exp-item"><span class="idx">V.</span>
                                 <p>Work on SkynetBee's internal software systems and tooling.</p>
                             </div>
-                            <div class="exp-item"><span class="idx">06</span>
+                            <div class="exp-item"><span class="idx">VI.</span>
                                 <p>Gained hands-on experience in backend development and web application management.</p>
                             </div>
                         </div>
@@ -1068,25 +1123,25 @@
         <div class="panel-wrap">
             <section class="panel" id="projects">
                 <div class="panel-inner">
-                    <div class="eyebrow">Platforms I Maintain</div>
-                    <h2 style="font-size:clamp(1.8rem,3vw,2.6rem);">Systems in production</h2>
+                    <div class="eyebrow">N°05 — Platforms</div>
+                    <h2 class="about-title">Systems in production.</h2>
 
                     <div class="proj-grid">
                         <div class="proj-card">
-                            <div class="proj-num">01</div>
+                            <div class="proj-num">N°01</div>
                             <h3>RD National College Software</h3>
                             <p>Backend maintenance, server operations and database administration for the college's core
                                 software.</p>
                             <div class="proj-stack"><span>PHP</span><span>MySQL</span><span>phpMyAdmin</span></div>
                         </div>
                         <div class="proj-card">
-                            <div class="proj-num">02</div>
+                            <div class="proj-num">N°02</div>
                             <h3>RD International School Software</h3>
                             <p>Ongoing backend support and data management for the school's operational platform.</p>
                             <div class="proj-stack"><span>PHP</span><span>MySQL</span><span>DBeaver</span></div>
                         </div>
                         <div class="proj-card">
-                            <div class="proj-num">03</div>
+                            <div class="proj-num">N°03</div>
                             <h3>SkynetBee Internal Systems</h3>
                             <p>Maintenance and administration of internal tools used across the SkynetBee AI team.</p>
                             <div class="proj-stack"><span>JavaScript</span><span>PHP</span><span>MySQL</span></div>
@@ -1100,20 +1155,16 @@
         <div class="panel-wrap">
             <section class="panel" id="contact">
                 <div class="panel-inner">
-                    <div class="eyebrow" style="justify-content:center;">Get in touch</div>
-                    <h2 class="contact-big">Let's build<br><span class="accent">something reliable.</span></h2>
-                    <p class="contact-sub">
-                        Open to backend, database and web development opportunities.
-                        Reach out and let's talk about what you're building.
-                    </p>
+                    <div class="eyebrow" style="justify-content:center;">N°06 — Get in touch</div>
+                    <h2 class="contact-big">Let's build<br><em>something reliable.</em></h2>
+                    <p class="contact-sub">Open to backend, database and web development opportunities.</p>
                     <div class="contact-links">
-                        <a href="mailto:your.email@example.com" class="contact-link primary">Email Me ↗</a>
-                        <a href="https://github.com/divagarinfo14-ops" target="_blank" rel="noopener noreferrer"
-                            class="contact-link">GitHub ↗</a>
+                        <a href="mailto:your.email@example.com" class="contact-link primary">Email Me</a>
+                        <a href="https://github.com/divagarinfo14-ops" class="contact-link">GitHub</a>
                         <a href="https://www.linkedin.com/in/divagar-n-2b63b136a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                            target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn ↗</a>
-                        <a href="https://www.instagram.com/divagar.n_?igsh=MWlsbHVsdXpsbnE1Ng==" target="_blank"
-                            rel="noopener noreferrer" class="contact-link">Instagram ↗</a>
+                            class="contact-link">LinkedIn</a>
+                        <a href="https://www.instagram.com/divagar.n_?igsh=MWlsbHVsdXpsbnE1Ng=="
+                            class="contact-link">Instagram</a>
                     </div>
                 </div>
             </section>
@@ -1121,62 +1172,45 @@
 
     </main>
 
-    <footer>© 2026 DIVAGAR N — BUILT WITH HTML, CSS &amp; JAVASCRIPT</footer>
+    <footer>© 2026 Divagar N — Built with HTML, CSS &amp; JavaScript</footer>
 
     <script>
         (function () {
-            // ---------- Background particle / circuit canvas ----------
             const canvas = document.getElementById('bg-canvas');
             const ctx = canvas.getContext('2d');
             let w, h, particles = [];
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            function resize() {
-                w = canvas.width = window.innerWidth;
-                h = canvas.height = window.innerHeight;
-            }
+            function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
             resize();
             window.addEventListener('resize', resize);
 
-            const COUNT = window.innerWidth < 768 ? 45 : 90;
+            const COUNT = window.innerWidth < 768 ? 40 : 80;
             for (let i = 0; i < COUNT; i++) {
                 particles.push({
-                    x: Math.random() * w,
-                    y: Math.random() * h,
-                    vx: (Math.random() - 0.5) * 0.25,
-                    vy: (Math.random() - 0.5) * 0.25,
-                    r: Math.random() * 1.6 + 0.6
+                    x: Math.random() * w, y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
+                    r: Math.random() * 1.4 + 0.5
                 });
             }
 
-            let mouseX = w / 2, mouseY = h / 2;
-            window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-
             function draw() {
                 ctx.clearRect(0, 0, w, h);
-                ctx.fillStyle = 'rgba(125,216,255,0.55)';
-
+                ctx.fillStyle = 'rgba(201,164,92,0.5)';
                 for (const p of particles) {
                     p.x += p.vx; p.y += p.vy;
                     if (p.x < 0 || p.x > w) p.vx *= -1;
                     if (p.y < 0 || p.y > h) p.vy *= -1;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                    ctx.fill();
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
                 }
-
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const a = particles[i], b = particles[j];
-                        const dx = a.x - b.x, dy = a.y - b.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 130) {
-                            ctx.strokeStyle = `rgba(125,216,255,${0.12 * (1 - dist / 130)})`;
+                        const dx = a.x - b.x, dy = a.y - b.y, dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.strokeStyle = `rgba(201,164,92,${0.10 * (1 - dist / 120)})`;
                             ctx.lineWidth = 1;
-                            ctx.beginPath();
-                            ctx.moveTo(a.x, a.y);
-                            ctx.lineTo(b.x, b.y);
-                            ctx.stroke();
+                            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
                         }
                     }
                 }
@@ -1184,31 +1218,28 @@
             }
             draw();
 
-            // ---------- Photo fallback: hide broken placeholder image ----------
+            // Profile photo fallback
             const img = document.getElementById('profileImg');
             const fallback = document.getElementById('photoFallback');
             img.addEventListener('error', () => { img.style.display = 'none'; fallback.style.display = 'flex'; });
             img.addEventListener('load', () => {
                 if (img.naturalWidth > 0) { img.style.display = 'block'; fallback.style.display = 'none'; }
             });
-            // trigger check
             if (img.complete && img.naturalWidth === 0) { img.dispatchEvent(new Event('error')); }
 
-
-            // ---------- Scroll-driven 3D "close & reveal" panel transform ----------
+            // Scroll-driven 3D panel close/reveal
             const wraps = Array.from(document.querySelectorAll('.panel-wrap'));
             const panels = wraps.map(w => w.querySelector('.panel'));
-
             panels.forEach((p, i) => { p.style.zIndex = i + 1; });
 
             let ticking = false;
             function updatePanels() {
                 const vh = window.innerHeight;
                 wraps.forEach((wrap, i) => {
-                    if (i === wraps.length - 1) return; // last panel never closes
+                    if (i === wraps.length - 1) return;
                     const panel = panels[i];
                     const rect = wrap.getBoundingClientRect();
-                    const scrollRange = rect.height - vh; // extra scroll distance beyond one viewport
+                    const scrollRange = rect.height - vh;
                     if (scrollRange <= 0) return;
                     let progress = (0 - rect.top) / scrollRange;
                     progress = Math.min(Math.max(progress, 0), 1);
@@ -1225,26 +1256,20 @@
                 });
                 ticking = false;
             }
-
             window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    requestAnimationFrame(updatePanels);
-                    ticking = true;
-                }
+                if (!ticking) { requestAnimationFrame(updatePanels); ticking = true; }
             });
             updatePanels();
 
-            // ---------- Active section rail dots ----------
+            // Rail dots
             const dots = document.querySelectorAll('.rail-dot');
             const sections = Array.from(document.querySelectorAll('.panel'));
-
             function updateRail() {
                 const mid = window.scrollY + window.innerHeight / 2;
                 let activeIndex = 0;
                 sections.forEach((sec, i) => {
                     const wrap = wraps[i];
-                    const top = wrap.offsetTop;
-                    const bottom = top + wrap.offsetHeight;
+                    const top = wrap.offsetTop, bottom = top + wrap.offsetHeight;
                     if (mid >= top && mid < bottom) activeIndex = i;
                 });
                 dots.forEach((d, i) => d.classList.toggle('active', i === activeIndex));
@@ -1252,7 +1277,6 @@
             window.addEventListener('scroll', () => requestAnimationFrame(updateRail));
             updateRail();
             if (dots[0]) dots[0].classList.add('active');
-
             dots.forEach(dot => {
                 dot.addEventListener('click', () => {
                     const target = document.getElementById(dot.dataset.target);
@@ -1261,30 +1285,14 @@
                 });
             });
 
-            // ---------- Hero terminal card tilt on mouse ----------
-            const tiltCard = document.getElementById('tiltCard');
-            if (tiltCard && !reduceMotion) {
-                document.getElementById('console').addEventListener('mousemove', (e) => {
-                    const rect = tiltCard.getBoundingClientRect();
-                    const cx = rect.left + rect.width / 2;
-                    const cy = rect.top + rect.height / 2;
-                    const dx = (e.clientX - cx) / rect.width;
-                    const dy = (e.clientY - cy) / rect.height;
-                    tiltCard.style.transform = `rotateY(${-16 + dx * 14}deg) rotateX(${8 - dy * 14}deg)`;
-                });
-                document.getElementById('console').addEventListener('mouseleave', () => {
-                    tiltCard.style.transform = 'rotateY(-16deg) rotateX(8deg)';
-                });
-            }
-
-            // ---------- Skill / project card tilt ----------
-            document.querySelectorAll('.skill-card, .proj-card').forEach(card => {
+            // Card hover tilt (subtle, luxury restraint)
+            document.querySelectorAll('.proj-card, .portrait-frame').forEach(card => {
                 if (reduceMotion) return;
                 card.addEventListener('mousemove', e => {
                     const r = card.getBoundingClientRect();
                     const dx = (e.clientX - r.left - r.width / 2) / r.width;
                     const dy = (e.clientY - r.top - r.height / 2) / r.height;
-                    card.style.transform = `rotateY(${dx * 8}deg) rotateX(${-dy * 8}deg) translateY(-4px)`;
+                    card.style.transform = `rotateY(${dx * 4}deg) rotateX(${-dy * 4}deg)`;
                 });
                 card.addEventListener('mouseleave', () => { card.style.transform = ''; });
             });
